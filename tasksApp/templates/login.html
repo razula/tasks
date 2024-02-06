@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js" integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="{% static 'tasksApp/css/loginStyle.css' %}">
+    <title>Login To MyTasks</title>
+</head>
+
+<script>
+        
+    function signup() {
+        document.getElementById("signUpDiv").style.display = "flex"
+        loginDiv.style.display = "none"
+    }
+
+
+    function submitForms(formID) {
+        axios.get("/api/users").then(response => {
+            
+            let valid=true;
+            let html="";
+
+            Array.from(document.getElementById(formID).getElementsByTagName("input")).map(item => {
+                if (item.value == "") {
+                    item.style.backgroundColor = "pink";
+                    html = "Please fill out the red fields.";
+                    valid=false;
+                    document.getElementById("message").innerHTML= html;
+                }
+        
+            })
+
+            if (`${formID}` == "signupForm") {
+                    let inputValue = document.getElementsByClassName("signupForm")[0].getElementsByTagName("input")[0].value;
+                        response.data.allUsers.map(item => {
+                            if (inputValue === item) {
+                                html = "This username is occupied";
+                                valid = false;
+                                document.getElementsByClassName("signupForm")[0].getElementsByTagName("input")[0].style.backgroundColor = "pink";
+                                document.getElementById("message").innerHTML= html;
+                            }}
+                        )
+                    }
+                
+                if (valid==true) {
+                    document.getElementById(formID).submit();
+                }       
+    })
+}
+
+</script>
+
+<body>
+    
+
+    <div id="loginDiv" class="loginDiv" style="display: flex;">
+        <div class="newUser">
+            <div class="newUserTitle">New to MyTasks?</div>
+            <button id="button2" onclick="signup()">click Here</button>
+            </div>
+        <h1>Login</h1>
+        <form action="/login/" method="POST" id="loginForm">
+            {{ form }}
+        </form>
+        <button onclick="submitForms('loginForm')">Login!</button>
+    </div>
+    
+    <div id="signUpDiv" class="signUpDiv" style="display: none;">
+        <h1>Sign Up</h1>
+        <form action="/signup/" method="POST" id="signupForm" class="signupForm">
+            {{ form }}
+        </form>
+        <button onclick="submitForms('signupForm')">Sign up!</button>
+    </div>
+</body>
+</html>

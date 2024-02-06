@@ -1,0 +1,186 @@
+
+.options {
+    padding: 3px;
+    cursor: pointer;
+}
+
+body {
+    background-color: cornsilk;
+}
+
+.navbar {
+    margin: auto;
+    background-color:darkcyan;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.allTasks {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 40px;
+    justify-content: center;
+
+}
+
+.defaultCategory {
+    background-color:darkcyan;
+    border-radius: 8px;
+    padding: 5px;
+    opacity: 0.9;
+    height: fit-content;
+}
+
+.defaultCategory:hover {
+    opacity: 1;
+
+}
+
+.h4 {
+    font-size:xx-large;
+    font-family: fantasy;
+    text-align: center;
+}
+
+.Finance, .Financial .Test {
+    all: inherit;
+    padding: 5px;
+    background-color: burlywood;
+}
+
+.Sport, .Sports {
+    all: inherit;
+    background-color: rgb(246, 153, 88);
+    padding: 5px;
+}
+
+.Home {
+    all: inherit;
+    background-color: rgb(115, 147, 250);
+    padding: 5px;
+}
+
+.Work, .Job, .Family { 
+    all: inherit;
+    background-color: rgb(114, 225, 132);
+    padding: 5px;
+}
+
+.School, .Uni, .Studies, .University {
+    all: inherit;
+    background-color: rgb(244, 135, 228);
+    padding: 5px;
+}
+
+.task {
+    padding: 5px;
+    border-radius: 8px;
+    opacity: 1;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+}
+
+.buttons {
+    padding: 4px;
+    margin: auto;
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    background-color:rgba(245, 245, 220, 0.333);
+    border-radius: 32px;
+    font-family:cursive;
+    border-style: none;
+}
+
+button:hover {
+    background-color:rgba(247, 247, 194, 0.656);
+    border-style: solid;
+    border-color: black;
+    box-shadow: 5px 10px 8px #888888
+}
+
+.updateForm {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 20px;
+    margin: 10px;
+}
+
+.inUpdateForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.labels {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 5px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 5px;
+}
+
+.userSelect {
+    display: flex;
+    flex-direction: column;
+}
+
+.selection {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    text-align: center;
+}
+
+.selectLabel {
+    margin-bottom: 10px;
+}
+
+.addFormDiv {
+    background-color:darkcyan;
+    padding: 5px;
+    border-radius: 8px;
+    width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.addForm {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteDiv {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 20px;
+    font-size: xx-large;
+}
+
+.deleteUsersForm{
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    border-radius: 8px;
+    margin: auto;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks App</title>
+    <link rel="stylesheet" href="{% static 'tasksApp/css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js" integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'tasksApp/js/tasks.js' %}" defer></script>
+</head>
+
+<script>
+    // Searches for tasks based on the provided input and updates their display status accordingly.
+    function searchTask(input){
+    axios.get("/api/tasks").then(response => {
+        Array.from(response.data).map(item => {
+            if(! (item.fields.description.includes(`${input}`) || item.fields.notes.includes(`${input}`))){
+                document.getElementById(`task${item.pk}`).style.display = "none";
+            }
+            else {
+                document.getElementById(`task${item.pk}`).style.display = "flex";
+            }
+        })
+
+    })
+}
+
+</script>
+
+<body>
+
+    <a href="/logout/">Logout</a>
+    <div class="navbar" id="navbar">
+        <button onclick="addFormDiv()">Add</button>
+        <input id="search" oninput="searchTask(this.value)" type="text" placeholder="Search Your Task">
+        <button onclick="deleteUsers()" id="deleteUsers" style="display: none;">Delete Users</button>
+    </div>
+    
+    <div class="addFormDiv" id="addFormDiv" style="display: none;">
+        <form action="/add/task/" method="POST" class="addForm" id="addForm">
+            {{ addForm }}
+        </form>
+        <button onclick="submitAddForm()" style="margin-right: 15px; height: fit-content; align-self:center;">Add this Task</button>
+    </div>
+    
+    <div class="deleteDiv" id="deleteDiv">{{ message }}</div>
+    
+    <div class="allTasks">
+        {% for category in categories %}
+            <div class="defaultCategory">
+            <div class="{{ category }}">
+                <div class="h4">{{ category }}</div>
+                {% for task in tasks %}
+                    {% if task.category == category %}
+                        <div class="task" id="task{{ task.id }}">
+                            <div style="display: flex; margin-bottom: 7px; justify-content: center;">
+                                <div style="font-size: x-small;">{{ task.dateCreated }}</div>
+                                <div style="font-size: x-small; padding-left: 4px; font-weight: bolder;"> - {{ task.status }}</div>
+                                <div style="font-size: x-small; padding-left: 20px; font-weight: bolder;">Complete By: {{ task.dueDate }}</div>    
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <div>
+                                    <div style="display: flex; gap: 5px;">    
+                                        <div style="padding: 4px; font-style: italic; font-family: cursive; font-weight: bold;">{{ task.description }}</div>
+                                    </div>
+                                </div>
+                                <div style="padding-left: 4px; padding-top: 2px; font-style: italic; font-family: cursive; font-size: small; font-weight: lighter; color: rgb(47, 47, 47);">{{ task.notes }}</div>
+                            </div>
+                            <div class="buttons">
+                                <button onclick="updateTask('{{ task.id }}', '{{task.dateCreated}}', `{{ task.description }}`, '{{ task.dueDate }}', '{{ task.notes }}', '{{ task.status }}')">Update</button>
+                                <button onclick="deleteTask('{{ task.id }}')">Delete</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}    
+            </div></div>
+        {% endfor %}    
+    </div>
+</body>
+</html>
